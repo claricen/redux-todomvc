@@ -3,7 +3,7 @@ import {expect} from 'chai';
 
 import reducer from '../src/reducer';
 
-describe('reducer', () => {
+describe('Reducer', () => {
 
   it('handles SET_STATE', () => {
     const initialState = Map();
@@ -113,6 +113,26 @@ describe('reducer', () => {
         {id: 2, text: 'Redux', status: 'active'},
         {id: 3, text: 'Immutable', status: 'active'}
       ]
+    }));
+  });
+
+  it('handles CHANGE_FILTER by changing the filter', () => {
+    const initialState = fromJS({
+      todos: [
+        {id: 1, text: 'React', status: 'active'},
+      ],
+      filter: 'all'
+    });
+    const action = {
+      type: 'CHANGE_FILTER',
+      filter: 'active'
+    }
+    const nextState = reducer(initialState, action);
+    expect(nextState).to.equal(fromJS({
+      todos: [
+        {id: 1, text: 'React', status: 'active'},
+      ],
+      filter: 'active'
     }));
   });
 });
